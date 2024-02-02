@@ -36,8 +36,8 @@ public class Model {
 
 
     @ManyToOne
-    @NotNull(message = "El Id de la aerolínea asociada es obligatorio")
-    @JoinColumn(name = "airline_id")
+    @NotNull(message = "El Id de la marca asociada es obligatoria")
+    @JoinColumn(name = "brand_id")
     private Brand brand;
 
 }
