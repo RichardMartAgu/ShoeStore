@@ -4,6 +4,7 @@ import com.savlero.ShoeStore.controller.ModelController;
 import com.savlero.ShoeStore.domain.Brand;
 import com.savlero.ShoeStore.domain.Model;
 import com.savlero.ShoeStore.dto.ModelPatchDto;
+import com.savlero.ShoeStore.exceptions.BrandNotFoundException;
 import com.savlero.ShoeStore.exceptions.ModelNotFoundException;
 import com.savlero.ShoeStore.repository.ModelRepository;
 import org.modelmapper.ModelMapper;
@@ -22,7 +23,7 @@ public class ModelService {
     @Autowired
     private ModelRepository modelRepository;
     @Autowired
-    private ModelService modelService;
+    private BrandService brandService;
     @Autowired
     private ModelMapper modelMapper;
     private Logger logger = LoggerFactory.getLogger(ModelController.class);
@@ -37,12 +38,12 @@ public class ModelService {
         return modelRepository.findById(id);
     }
 
-    public List<Model> findModelByBrandId(long brandId) throws ModelNotFoundException {
+    public List<Model> findModelByBrandId(long brandId) throws BrandNotFoundException {
         logger.info("Ini findModelByBrandId " + brandId);
         Optional<Brand> brandOptional = brandService.findById(brandId);
         if (brandOptional.isPresent()) {
             logger.info("End findModelByBrandId " + brandId);
-            return modelRepository.findAByBrand(brandOptional);
+            return modelRepository.findModelByBrandId(brandOptional);
         } else {
             throw new BrandNotFoundException();
         }

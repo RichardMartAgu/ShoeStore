@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface BrandRepository extends CrudRepository<Brand, Long> {
     List<Brand> findAll();
+
 }

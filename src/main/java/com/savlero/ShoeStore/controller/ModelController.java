@@ -3,6 +3,7 @@ package com.savlero.ShoeStore.controller;
 import com.savlero.ShoeStore.domain.ErrorResponse;
 import com.savlero.ShoeStore.domain.Model;
 import com.savlero.ShoeStore.dto.ModelPatchDto;
+import com.savlero.ShoeStore.exceptions.BrandNotFoundException;
 import com.savlero.ShoeStore.exceptions.ModelNotFoundException;
 import com.savlero.ShoeStore.service.ModelService;
 import jakarta.validation.Valid;
@@ -26,8 +27,6 @@ import java.util.stream.Collectors;
 public class ModelController {
     @Autowired
     private ModelService modelService;
-    @Autowired
-    private BrandService brandService;
     private Logger logger = LoggerFactory.getLogger(ModelController.class);
 
     @GetMapping("/models")
@@ -66,17 +65,17 @@ public class ModelController {
     }
 
     @GetMapping("/brand/{brandId}/models")
-    public ResponseEntity<List<Model>> getModelByAirlineId(@PathVariable long modelId) {
-        logger.info("ini GET/brand/ " + modelId + "/models");
+    public ResponseEntity<List<Model>> getModelByAirlineId(@PathVariable long brandId) {
+        logger.info("ini GET/brand/ " + brandId + "/models");
         try {
-            List<Model> model = modelService.findModelByBrnadlId(brandId);
+            List<Model> model = modelService.findModelByBrandId(brandId);
             return new ResponseEntity<>(model, HttpStatus.OK);
         } catch (BrandNotFoundException e) {
             logger.warn("BrandNotFoundException ID: " + brandId);
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Brand not found with ID: " + modelId, e);
+                    HttpStatus.NOT_FOUND, "Brand not found with ID: " + brandId, e);
         } finally {
-            logger.info("end GET/brand/ " + modelId + "/models");
+            logger.info("end GET/brand/ " + brandId + "/models");
         }
     }
 

@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BrandPatchDto {
     private String field;
-    private int address;
+    private String address;
 }

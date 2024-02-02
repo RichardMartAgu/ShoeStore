@@ -1,8 +1,11 @@
 package com.savlero.ShoeStore.service;
 
 import com.savlero.ShoeStore.controller.ShopController;
+import com.savlero.ShoeStore.domain.Model;
 import com.savlero.ShoeStore.domain.Shop;
+import com.savlero.ShoeStore.dto.ModelPatchDto;
 import com.savlero.ShoeStore.dto.ShopPatchDto;
+import com.savlero.ShoeStore.exceptions.ModelNotFoundException;
 import com.savlero.ShoeStore.exceptions.ShopNotFoundException;
 import com.savlero.ShoeStore.repository.ShopRepository;
 import org.slf4j.Logger;
@@ -68,10 +71,9 @@ public class ShopService {
         logger.info("Ini patchShop ID: " + shopId);
         Shop oldShop = shopRepository.findById(shopId).orElseThrow(ShopNotFoundException::new);
         if (shopPatchDto.getField().equals("name")) {
-            oldShop.setName(shopPatchDto.setName());
+            oldShop.setName(shopPatchDto.getName());
         }
         shopRepository.save((oldShop));
         logger.info("End patchShop");
     }
-
 }

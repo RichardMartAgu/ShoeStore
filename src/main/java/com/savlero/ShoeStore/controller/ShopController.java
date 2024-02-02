@@ -54,16 +54,16 @@ public class ShopController {
 
     @GetMapping("/shop/{shopId}")
     public ResponseEntity<Shop> getShop(@PathVariable long shopId) throws ShopNotFoundException {
-        logger.info("ini GET/shop/" + shopId );
+        logger.info("ini GET/shop/" + shopId);
         Optional<Shop> optionalShop = shopService.findById(shopId);
         Shop shop = optionalShop.orElseThrow(() -> new ShopNotFoundException(shopId));
-        logger.info("end GET/shop/" + shopId );
+        logger.info("end GET/shop/" + shopId);
         return new ResponseEntity<>(shop, HttpStatus.OK);
     }
 
     @PostMapping("/shop")
     public ResponseEntity<Shop> saveShop(@Valid @RequestBody Shop shop) {
-        logger.info("ini Post /shop" + shop );
+        logger.info("ini Post /shop" + shop);
         Shop newShop = shopService.saveShop(shop);
         logger.info("end Post /shop CREATED: {}", newShop);
         return new ResponseEntity<>(newShop, HttpStatus.CREATED);
@@ -72,24 +72,25 @@ public class ShopController {
 
     @DeleteMapping("/shop/{shopId}")
     public ResponseEntity<Void> deleteShop(@PathVariable long shopId) throws ShopNotFoundException {
-        logger.info("ini DELETE /shop/" + shopId );
+        logger.info("ini DELETE /shop/" + shopId);
         shopService.removeShop(shopId);
-        logger.info("end DELETE /shop/" + shopId );
+        logger.info("end DELETE /shop/" + shopId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/shop/{shopId}")
     public ResponseEntity<Void> modifyShop(@Valid @RequestBody Shop shop, @PathVariable long shopId) throws ShopNotFoundException {
-        logger.info("ini PUT /shop/" + shopId );
+        logger.info("ini PUT /shop/" + shopId);
         shopService.modifyShop(shop, shopId);
-        logger.info("end PUT /shop/" + shopId );
+        logger.info("end PUT /shop/" + shopId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
     @PatchMapping(value = "/shop/{shopId}")
-    public ResponseEntity<Void> patchShop (@PathVariable long shopId, @RequestBody ShopPatchDto shopPatchDto) throws ShopNotFoundException {
-        logger.info("ini PATCH /shop/" + shopId );
+    public ResponseEntity<Void> patchShop(@PathVariable long shopId, @RequestBody ShopPatchDto shopPatchDto) throws ShopNotFoundException {
+        logger.info("ini PATCH /shop/" + shopId);
         shopService.patchShop(shopId, shopPatchDto);
-        logger.info("end PATCH /shop/" + shopId );
+        logger.info("end PATCH /shop/" + shopId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

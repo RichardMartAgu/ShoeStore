@@ -1,6 +1,6 @@
 package com.savlero.ShoeStore.exceptions;
 
-public class BrandNotFoundException extends Exception  {
+public class BrandNotFoundException extends Exception {
     public BrandNotFoundException() {
         super();
     }

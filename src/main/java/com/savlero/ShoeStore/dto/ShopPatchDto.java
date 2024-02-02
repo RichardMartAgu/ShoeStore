@@ -11,5 +11,4 @@ public class ShopPatchDto {
     private String field;
     private String name;
 
-
 }
