@@ -21,16 +21,17 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@RestController
 public class ShopController {
     @Autowired
     private ShopService shopService;
     private Logger logger = LoggerFactory.getLogger(ShopController.class);
 
-    @GetMapping("/shop")
+    @GetMapping("/shops")
     public ResponseEntity<List<Shop>> getAll(@Valid @RequestParam(defaultValue = "") String name,
                                              @RequestParam(defaultValue = "0") float latitude,
                                              @RequestParam(defaultValue = "0") float longitude) {
-        logger.info("ini GET /shop by parameters: name={}, latitude={}, longitude={}", name, latitude, longitude);
+        logger.info("ini GET /shops by parameters: name={}, latitude={}, longitude={}", name, latitude, longitude);
         List<Shop> shopList = shopService.findAll();
 
         if (!name.isEmpty()) {

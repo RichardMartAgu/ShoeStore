@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -34,7 +35,7 @@ public class Model {
     @Positive
     private int maximumSize;
 
-
+    @ToString.Exclude
     @ManyToOne
     @NotNull(message = "El Id de la marca asociada es obligatoria")
     @JoinColumn(name = "brand_id")

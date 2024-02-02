@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,5 +27,4 @@ public class Shop {
     @Column
     @NotNull
     private double longitude;
-
 }

@@ -1,11 +1,8 @@
 package com.savlero.ShoeStore.service;
 
 import com.savlero.ShoeStore.controller.ShopController;
-import com.savlero.ShoeStore.domain.Model;
 import com.savlero.ShoeStore.domain.Shop;
-import com.savlero.ShoeStore.dto.ModelPatchDto;
 import com.savlero.ShoeStore.dto.ShopPatchDto;
-import com.savlero.ShoeStore.exceptions.ModelNotFoundException;
 import com.savlero.ShoeStore.exceptions.ShopNotFoundException;
 import com.savlero.ShoeStore.repository.ShopRepository;
 import org.slf4j.Logger;
@@ -44,7 +41,7 @@ public class ShopService {
     }
 
     public void removeShop(long shopId) throws ShopNotFoundException {
-        logger.info("Ini remoceShop ID: " + shopId);
+        logger.info("Ini removeShop ID: " + shopId);
         Shop shop = shopRepository.findById(shopId).orElseThrow(() -> new ShopNotFoundException(shopId));
         logger.info("End removeShop Shop: " + shop);
         shopRepository.delete(shop);

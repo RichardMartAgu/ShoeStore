@@ -30,11 +30,11 @@ public class BrandController {
     private BrandService brandService;
     private Logger logger = LoggerFactory.getLogger(BrandController.class);
 
-    @GetMapping("/brand")
+    @GetMapping("/brands")
     public ResponseEntity<List<Brand>> getAll(@Valid @RequestParam(defaultValue = "") String name,
-                                              @RequestParam(defaultValue = "0") String telephone,
-                                              @RequestParam(defaultValue = "0") String address) {
-        logger.info("ini GET /airlines by parameters: name={}, telephone={}, color={}", name, telephone, address);
+                                              @RequestParam(defaultValue = "") String telephone,
+                                              @RequestParam(defaultValue = "") String address) {
+        logger.info("ini GET /brands by parameters: name={}, telephone={}, color={}", name, telephone, address);
         List<Brand> brandsList = brandService.findAll();
 
         if (!name.isEmpty()) {
@@ -44,12 +44,12 @@ public class BrandController {
         }
         if (!telephone.isEmpty()) {
             brandsList = brandsList.stream()
-                    .filter(brand -> brand.getTelephone() == telephone)
+                    .filter(brand -> brand.getTelephone().contains(telephone))
                     .collect(Collectors.toList());
         }
         if (!address.isEmpty()) {
             brandsList = brandsList.stream()
-                    .filter(brand -> brand.getAddress() == address)
+                    .filter(brand -> brand.getAddress().contains(address))
                     .collect(Collectors.toList());
         }
         logger.info("end GET /brands . List size: {}", brandsList.size());
@@ -58,11 +58,11 @@ public class BrandController {
 
     @GetMapping("/brand/{brandId}")
     public ResponseEntity<Brand> getBrand(@PathVariable long brandId) throws BrandNotFoundException {
-        logger.info("ini GET/airline/" + brandId);
+        logger.info("ini GET/brand/" + brandId);
         Optional<Brand> optionalBrand = brandService.findById(brandId);
-        Brand airline = optionalBrand.orElseThrow(() -> new BrandNotFoundException(brandId));
+        Brand brand = optionalBrand.orElseThrow(() -> new BrandNotFoundException(brandId));
         logger.info("end GET/brand/" + brandId);
-        return new ResponseEntity<>(airline, HttpStatus.OK);
+        return new ResponseEntity<>(brand, HttpStatus.OK);
     }
 
     @PostMapping("/brand")
@@ -76,9 +76,9 @@ public class BrandController {
 
     @DeleteMapping("/brand/{brandId}")
     public ResponseEntity<Void> deleteBrand(@PathVariable long brandId) throws BrandNotFoundException {
-        logger.info("ini DELETE /airline/" + brandId);
+        logger.info("ini DELETE /brand/" + brandId);
         brandService.removeBrand(brandId);
-        logger.info("end DELETE /airline/" + brandId);
+        logger.info("end DELETE /brand/" + brandId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -90,7 +90,7 @@ public class BrandController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PatchMapping(value = "/brand/{airlineId}")
+    @PatchMapping(value = "/brand/{brandId}")
     public ResponseEntity<Void> patchBrand(@PathVariable long brandId, @RequestBody BrandPatchDto brandPatchDto) throws BrandNotFoundException {
         logger.info("ini PATCH /brand/" + brandId);
         brandService.patchBrand(brandId, brandPatchDto);
