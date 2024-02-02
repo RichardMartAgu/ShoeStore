@@ -1,0 +1,728 @@
+openapi: 3.0.1
+info:
+  title: Shop API
+  description: API para la gestión de tiendas de zapatos
+  version: 1.0.0
+servers:
+  - url: 'https://api.shoesshop.com'
+tags:
+  - name: shop
+    description: Operaciones para gestionar las tiendas
+  - name: brands
+    description: Operaciones para gestionar las marcas
+  - name: models
+    description: Operaciones para gestionar los modelos de cada zapato
+paths:
+  /shop:
+    get:
+      tags:
+        - shop
+      summary: Listado de tiendas de zapatos.
+      description: Esta operación permite consultar el listado completo de tiendas con toda su información.
+      responses:
+        '200':
+          description: Devuelve la lista completa de tiendas registradas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ShopOut'
+
+        '500':
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+    post:
+      tags:
+        - shop
+      summary: Registrar una nueva tienda de zapatos
+      operationId: postShop
+      requestBody:
+        description: Información de la nueva tienda de zapatos
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShopIn'
+            examples:
+              shop1:
+                value:
+                  name: Adidas
+                  latitude: 45.20
+                  longitude: 13.2
+
+      responses:
+        '201':
+          description: Tienda registrada correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShopOut'
+              examples:
+                shop2:
+                  value:
+                    id: 3
+                    name: Adidas
+                    latitude: 45.20
+                    longitude: 13.2
+        '500':
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+  /shop/{shopId}:
+    delete:
+      tags:
+        - shop
+      summary: Dar de baja una tienda
+      operationId: deleteShop
+      parameters:
+        - name: shopId
+          in: path
+          description: Identificador de la tienda
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: No content
+        '404':
+          description: No se ha encontrado la tienda
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFound'
+              example:
+                internalError: 404
+                message: "No se ha podido encontrar esta tienda"
+        '400':
+          description: Bad Request
+
+        '500':
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+    put:
+      tags:
+        - shop
+      summary: Modifica una tienda
+      description: Modifica los datos de una tienda concreta
+      operationId: modifyShop
+      parameters:
+        - name: shopId
+          in: path
+          description: Identificador de la tienda
+          required: true
+          schema:
+            type: number
+            format: int32
+            example: 1
+      requestBody:
+        description: Datos de tienda actualizados correctamente
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShopIn'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShopOut'
+        '404':
+          description: No se ha encontrado esta tienda
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFound'
+              example:
+                internalError: 404
+                message: "No se ha podido encontrar la tienda"
+        '500':
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+    patch:
+      tags:
+        - shop
+      summary: Actualizar el nombre de una tienda por ID
+      parameters:
+        - name: shopId
+          in: path
+          required: true
+          description: Id de la tienda a actualizar
+          schema:
+            type: integer
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - field
+                - name
+              properties:
+                field:
+                  type: string
+                  example: name
+                  description: nombre del campo que se cambia por defecto 'name'
+                name:
+                  type: string
+                  example: Tienda Manuel
+                  description: Nuevo nombre de la tienda
+      responses:
+        '204':
+          description: Ok
+        '404':
+          description: No se ha encontrado la tienda
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFound'
+              example:
+                internalError: 404
+                message: "No se ha podido encontrar esta tienda"
+        '400':
+          description: Bad Request
+        '500':
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+  /brand:
+    get:
+      tags:
+        - brands
+      summary: Listado de marcas
+      description: Esta operación permite consultar el listado completo de marcas con toda su información.
+      responses:
+        '200':
+          description: Devuelve la lista completa de marcas registradas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BrandOut'
+              examples:
+                brand1:
+                  value:
+                    - id: 1
+                      name: "Nike"
+                      phone: 675908432
+                      foundationYear: "2023-01-01"
+                brand2:
+                  value:
+                    - id: 2
+                      name: "Reebok"
+                      phone: 123456789
+                      foundationYear: "2023-01-02"
+        '500':
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+    post:
+      tags:
+        - brands
+      summary: Registrar una nueva marca
+      operationId: postBrand
+      requestBody:
+        description: Información de la nueva marca
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BrandIn'
+      responses:
+        '201':
+          description: Marca registrada correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrandOut'
+              examples:
+                brand1:
+                  value:
+                    - id: 3
+                      name: "Adidas"
+                      phone: 987654321
+                      foundationYear: "2023-01-03"
+                brand2:
+                  value:
+                    - id: 5
+                      name: "Reebok"
+                      phone: 987654321
+                      foundationYear: "2023-01-03"
+
+        '500':
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+  /brand/{brandId}:
+    delete:
+      tags:
+        - brands
+      summary: Dar de baja una marca
+      operationId: deleteBrand
+      parameters:
+        - name: brandId
+          in: path
+          description: Identificador de la marca
+          required: true
+          schema:
+            type: number
+            format: int32
+            example: 1
+      responses:
+        '204':
+          description: Ok
+        '404':
+          description: No se ha encontrado la marca
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFound'
+              example:
+                internalError: 1
+                message: "No se ha podido encontrar esta marca"
+        '400':
+          description: Bad Request
+        '500':
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+    put:
+      tags:
+        - brands
+      summary: Modifica una marca
+      description: Modifica los datos de una marca concreta
+      operationId: modifyBrand
+      parameters:
+        - name: brandId
+          in: path
+          description: Identificador de la marca
+          required: true
+          schema:
+            type: number
+            format: int32
+            example: 1
+      requestBody:
+        description: Datos de marca actualizados
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BrandIn'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrandOut'
+        '404':
+          description: No se ha encontrado este marca
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFound'
+              example:
+                internalError: 404
+                message: "No se ha podido encontrar la marca"
+        '500':
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+    patch:
+      tags:
+        - brands
+      summary: Actualizar la dirección de una marca por ID
+      parameters:
+        - name: brandId
+          in: path
+          required: true
+          description: Id de la marca a actualizar
+          schema:
+            type: integer
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - field
+                - address
+              properties:
+                field:
+                  type: string
+                  example: address
+                  description: Nombre del campo que se cambia por defecto 'address'
+                address:
+                  type: string
+                  description: Nueva dirección de la marca
+      responses:
+        '204':
+          description: Ok
+        '404':
+          description: No se ha encontrado la marca
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFound'
+              example:
+                internalError: 404
+                message: "No se ha podido encontrar esta marca"
+        '400':
+          description: Bad Request
+        '500':
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+  /model:
+    get:
+      tags:
+        - models
+      summary: Listado de modelos.
+      description: Esta operación permite consultar el listado completo de modelos con toda su información.
+      responses:
+        '200':
+          description: Devuelve la lista completa de modelos registrados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ModelOut'
+              examples:
+                model1:
+                  value:
+                    - id: 1
+                      name: Ultraboost
+                      price: 70
+                      minimumSize: 38
+                      maximumSize: 45
+                      brandId: 3
+                model2:
+                  value:
+                    - id: 2
+                      name: Predator
+                      price: 39.99
+                      minimumSize: 36
+                      maximumSize: 40
+                      brandId: 2
+        '500':
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+    post:
+      tags:
+        - models
+      summary: Registrar un nuevo modelo
+      operationId: postModel
+      requestBody:
+        description: Información del nuevo modelo
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelIn'
+      responses:
+        '201':
+          description: Modelo registrado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelOut'
+              examples:
+                model1:
+                  value:
+                    - id: 50
+                      name: Ultraboost
+                      price: 70
+                      minimumSize: 38
+                      maximumSize: 45
+                      brandId: 3
+                model2:
+                  value:
+                    - id: 60
+                      name: Predator
+                      price: 39.99
+                      minimumSize: 36
+                      maximumSize: 40
+                      brandId: 2
+
+        '500':
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+  /model/{modelId}:
+    delete:
+      tags:
+        - models
+      summary: Dar de baja un modelo
+      operationId: deleteModel
+      parameters:
+        - name: modelId
+          in: path
+          description: Identificador del modelo
+          required: true
+          schema:
+            type: number
+            format: int32
+            example: 1
+      responses:
+        '204':
+          description: Ok
+        '404':
+          description: No se ha encontrado el modelo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFound'
+              example:
+                internalError: 404
+                message: "No se ha podido encontrar este modelo"
+        '400':
+          description: Bad Request
+        '500':
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+    put:
+      tags:
+        - models
+      summary: Modifica un modelo
+      description: Modifica los datos de un modelo concreto
+      operationId: modifyModel
+      parameters:
+        - name: modelId
+          in: path
+          description: Identificador del modelo
+          required: true
+          schema:
+            type: number
+            format: int32
+            example: 1
+      requestBody:
+        description: Datos de modelo actualizados
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelIn'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelOut'
+        '404':
+          description: No se ha encontrado este modelo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFound'
+              example:
+                internalError: 404
+                message: "No se ha podido encontrar este modelo"
+        '500':
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+    patch:
+      tags:
+        - models
+      summary: Actualizar el precio de un modelo por ID
+      parameters:
+        - name: modelId
+          in: path
+          required: true
+          description: Id de la marca a actualizar
+          schema:
+            type: integer
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - field
+                - price
+              properties:
+                field:
+                  type: string
+                  example: price
+                  description: Nombre del campo que se cambia por defecto 'price'
+                price:
+                  type: number
+                  format: int32
+                  example: 60
+                  description: Nuevo precio del modelo
+      responses:
+        '204':
+          description: Ok
+        '404':
+          description: No se ha encontrado el modelo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFound'
+              example:
+                internalError: 404
+                message: "No se ha podido encontrar este modelo"
+        '400':
+          description: Bad Request
+        '500':
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+components:
+  schemas:
+    BrandIn:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Nike
+        phone:
+          type: integer
+          format: int32
+          example: 675984362
+        adress:
+          type: string
+          example: Avenida Almozara
+    BrandOut:
+      type: object
+      properties:
+        brandId:
+          type: number
+          format: int32
+          example: 1
+      allOf:
+        - $ref: '#/components/schemas/BrandIn'
+    ModelIn:
+      type: object
+      properties:
+        name:
+          type: string
+          example: AIR320
+        price:
+          type: number
+          format: float
+          example: 70.9
+        minimumSize:
+          type: string
+          example: comedia
+        maximumSize:
+          type: number
+          format: int32
+          example: 120
+    ModelOut:
+      type: object
+      properties:
+        modelId:
+          type: number
+          format: int32
+          example: 1
+      allOf:
+        - $ref: '#/components/schemas/ModelIn'
+    ShopIn:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Adidas
+        latitude:
+          type: number
+          format: double
+          example: 4.50
+        longitude:
+          type: number
+          format: double
+          example: 10.20
+
+    ShopOut:
+      type: object
+      properties:
+        shopId:
+          type: number
+          format: int32
+          example: 1
+      allOf:
+        - $ref: '#/components/schemas/ShopIn'
+    ErrorResponse:
+      properties:
+        internalError:
+          type: number
+          format: int32
+        message:
+          type: string
+      type: object
+    ResourceNotFound:
+      allOf:
+        - type: object
+        - $ref: '#/components/schemas/ErrorResponse'
+    BadRequestError:
+      type: object
+      properties:
+        internalError:
+          type: number
+          format: int32
+          example: 400
+        message:
+          type: string
+          example: "Bad Request"
+    InternalServerError:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+      example:
+        internalError: 500
+        message: "Internal Server Error"

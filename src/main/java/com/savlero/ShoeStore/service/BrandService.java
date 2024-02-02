@@ -67,7 +67,7 @@ public class BrandService {
     public void patchBrand(long brandId, BrandPatchDto brandPatchDto) throws BrandNotFoundException {
         logger.info("Ini patchBrand ID: " + brandId);
         Brand oldBrand = brandRepository.findById(brandId).orElseThrow(BrandNotFoundException::new);
-        if (brandPatchDto.getField().equals("maximumSize")) {
+        if (brandPatchDto.getField().equals("address")) {
             oldBrand.setAddress(brandPatchDto.getAddress());
         }
         brandRepository.save((oldBrand));
