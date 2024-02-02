@@ -29,14 +29,12 @@ public class Brand {
     private String name;
     @NotNull(message = "El teléfono es obligatorio")
     @Column
-    @Positive
-    private int telephone;
+    private String telephone;
     @NotNull(message = "El el color es obligatorio")
     @Column
     private String address;
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "model")
+    @OneToMany(mappedBy = "brand")
     @JsonIgnore
     private List<Model> model;
 

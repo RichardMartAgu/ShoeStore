@@ -32,8 +32,8 @@ public class BrandController {
 
     @GetMapping("/brand")
     public ResponseEntity<List<Brand>> getAll(@Valid @RequestParam(defaultValue = "") String name,
-                                              @RequestParam(defaultValue = "0") int telephone,
-                                              @RequestParam(defaultValue = "") String address) {
+                                              @RequestParam(defaultValue = "0") String telephone,
+                                              @RequestParam(defaultValue = "0") String address) {
         logger.info("ini GET /airlines by parameters: name={}, telephone={}, color={}", name, telephone, address);
         List<Brand> brandsList = brandService.findAll();
 
@@ -42,7 +42,7 @@ public class BrandController {
                     .filter(brand -> brand.getName().contains(name))
                     .collect(Collectors.toList());
         }
-        if (telephone > 0) {
+        if (!telephone.isEmpty()) {
             brandsList = brandsList.stream()
                     .filter(brand -> brand.getTelephone() == telephone)
                     .collect(Collectors.toList());

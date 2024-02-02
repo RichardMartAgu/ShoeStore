@@ -19,8 +19,6 @@ public class BrandService {
 
     @Autowired
     private BrandRepository brandRepository;
-    @Autowired
-    private com.savlero.ShoeStore.service.BrandService mService;
 
     private Logger logger = LoggerFactory.getLogger(BrandController.class);
 
