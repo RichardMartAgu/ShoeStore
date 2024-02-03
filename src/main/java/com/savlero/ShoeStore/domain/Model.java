@@ -36,7 +36,11 @@ public class Model {
     @NotNull(message = "El tamaño máximo es obligatorio")
     @Positive
     private int maximumSize;
+    @Column
+    private boolean premium;
+    @Column
     private LocalDate registerDate;
+
 
     @ToString.Exclude
     @ManyToOne

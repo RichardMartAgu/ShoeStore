@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -72,6 +71,8 @@ public class ModelService {
             existingModel.setPrice(newModel.getPrice());
             existingModel.setMinimumSize(newModel.getMinimumSize());
             existingModel.setMaximumSize(newModel.getMaximumSize());
+            existingModel.setRegisterDate(newModel.getRegisterDate());
+            existingModel.setPremium(newModel.isPremium());
 
             modelRepository.save(existingModel);
         } else {
