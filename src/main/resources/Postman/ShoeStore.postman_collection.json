@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "475e4a7c-e235-45e4-9f6d-088ce87f9d44",
+		"_postman_id": "07eaad4e-c0d8-424f-8d6b-2c471e0c850b",
 		"name": "ShoeStore",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "31161983"
+		"_exporter_id": "31669740"
 	},
 	"item": [
 		{
@@ -15,12 +15,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8083/brands",
+							"raw": "http://localhost:8080/brands",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "8080",
 							"path": [
 								"brands"
 							]
@@ -34,12 +34,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8083/brands?name=Nike",
+							"raw": "http://localhost:8080/brands?name=Nike",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "8080",
 							"path": [
 								"brands"
 							],
@@ -68,12 +68,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8083/brand",
+							"raw": "http://localhost:8080/brand",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "8080",
 							"path": [
 								"brand"
 							]
@@ -96,15 +96,21 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8083/brand/2",
+							"raw": "http://localhost:8080/brand/?brandId=2",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "8080",
 							"path": [
 								"brand",
-								"2"
+								""
+							],
+							"query": [
+								{
+									"key": "brandId",
+									"value": "2"
+								}
 							]
 						}
 					},
@@ -125,12 +131,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8083/brand/:brandId",
+							"raw": "http://localhost:8080/brand/:brandId",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "8080",
 							"path": [
 								"brand",
 								":brandId"
@@ -151,15 +157,21 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8083/brand/5",
+							"raw": "http://localhost:8080/brand/?brandId=35",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "8080",
 							"path": [
 								"brand",
-								"5"
+								""
+							],
+							"query": [
+								{
+									"key": "brandId",
+									"value": "35"
+								}
 							]
 						}
 					},
@@ -176,12 +188,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8083/shops",
+							"raw": "http://localhost:8080/shops",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "8080",
 							"path": [
 								"shops"
 							]
@@ -195,12 +207,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8083/shops?name=ZaragozaShoes",
+							"raw": "http://localhost:8080/shops?name=ZaragozaShoes",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "8080",
 							"path": [
 								"shops"
 							],
@@ -229,12 +241,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8083/shop",
+							"raw": "http://localhost:8080/shop",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "8080",
 							"path": [
 								"shop"
 							]
@@ -257,15 +269,21 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8083/shop/1",
+							"raw": "http://localhost:8080/shop/?ShopId=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "8080",
 							"path": [
 								"shop",
-								"1"
+								""
+							],
+							"query": [
+								{
+									"key": "ShopId",
+									"value": "1"
+								}
 							]
 						}
 					},
@@ -286,12 +304,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8083/shop/:shopId",
+							"raw": "http://localhost:8080/shop/:shopId",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "8080",
 							"path": [
 								"shop",
 								":shopId"
@@ -299,7 +317,7 @@
 							"variable": [
 								{
 									"key": "shopId",
-									"value": "2"
+									"value": "1"
 								}
 							]
 						}
@@ -312,15 +330,21 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8083/shop/5",
+							"raw": "http://localhost:8080/shop/?ShopId=35",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "8080",
 							"path": [
 								"shop",
-								"5"
+								""
+							],
+							"query": [
+								{
+									"key": "ShopId",
+									"value": "35"
+								}
 							]
 						}
 					},
@@ -337,12 +361,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8083/models",
+							"raw": "http://localhost:8080/models",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "8080",
 							"path": [
 								"models"
 							]
@@ -356,12 +380,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8083/models?name=A001",
+							"raw": "http://localhost:8080/models?name=A001",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "8080",
 							"path": [
 								"models"
 							],
@@ -382,7 +406,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"N001\",\r\n    \"price\": 9.50 ,\r\n    \"minimumSize\": 35 ,\r\n    \"maximumSize\": 41,\r\n    \"brand\":{\r\n        \"id\": 2\r\n    }\r\n}",
+							"raw": "{\r\n    \"name\": \"N001\",\r\n    \"price\": 9.50 ,\r\n    \"minimumSize\": 35 ,\r\n    \"maximumSize\": 41,\r\n    \"premium\": false,\r\n    \"registerDate\":  \"2035-01-18\",\r\n    \"brand\":{\r\n        \"id\": 2\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -410,7 +434,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"A001\",\r\n    \"price\": 45.50 ,\r\n    \"minimumSize\": 38 ,\r\n    \"maximumSize\": 42,\r\n    \"brand\":{\r\n        \"id\": 3\r\n    }\r\n}",
+							"raw": "{\r\n    \"name\": \"A001\",\r\n    \"price\": 45.50 ,\r\n    \"minimumSize\": 38 ,\r\n    \"maximumSize\": 42,\r\n    \"premium\": false,\r\n    \"registerDate\":  \"2035-01-18\",\r\n    \"brand\":{\r\n        \"id\": 3\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -418,15 +442,21 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8083/model/1",
+							"raw": "http://localhost:8080/model/?ModelId=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "8080",
 							"path": [
 								"model",
-								"1"
+								""
+							],
+							"query": [
+								{
+									"key": "ModelId",
+									"value": "1"
+								}
 							]
 						}
 					},
@@ -447,12 +477,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8083/model/:modelId",
+							"raw": "http://localhost:8080/model/:modelId",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "8080",
 							"path": [
 								"model",
 								":modelId"
@@ -473,15 +503,21 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8083/model/5",
+							"raw": "http://localhost:8080/model/?ModelId=4",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "8080",
 							"path": [
 								"model",
-								"5"
+								""
+							],
+							"query": [
+								{
+									"key": "ModelId",
+									"value": "4"
+								}
 							]
 						}
 					},

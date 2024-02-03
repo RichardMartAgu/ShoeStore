@@ -432,6 +432,8 @@ paths:
                       price: 70
                       minimumSize: 38
                       maximumSize: 45
+                      premium: true
+                      registerDate: 20-05-2010
                       brandId: 3
                 model2:
                   value:
@@ -440,6 +442,8 @@ paths:
                       price: 39.99
                       minimumSize: 36
                       maximumSize: 40
+                      premium: false
+                      registerDate: 20-05-2010
                       brandId: 2
         '500':
           description: Error interno en el servidor
@@ -475,6 +479,8 @@ paths:
                       price: 70
                       minimumSize: 38
                       maximumSize: 45
+                      premium: true
+                      registerDate: 20-05-2010
                       brandId: 3
                 model2:
                   value:
@@ -483,6 +489,8 @@ paths:
                       price: 39.99
                       minimumSize: 36
                       maximumSize: 40
+                      premium: false
+                      registerDate: 05-01-2000
                       brandId: 2
 
         '500':
@@ -664,6 +672,12 @@ components:
           type: number
           format: int32
           example: 120
+        premium:
+          type: boolean
+          example: true
+        registerDate:
+          type: string
+          example: 20-05-2010
     ModelOut:
       type: object
       properties:
