@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,6 +36,7 @@ public class Model {
     @NotNull(message = "El tamaño máximo es obligatorio")
     @Positive
     private int maximumSize;
+    private LocalDate registerDate;
 
     @ToString.Exclude
     @ManyToOne
